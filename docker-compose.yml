@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  hbportfoliobackend:
+    image: hbportfoliobackend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8000:8000
