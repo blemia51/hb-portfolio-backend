@@ -6,9 +6,10 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { AboutService } from './about/about.service';
 import { AboutModule } from './about/about.module';
 import { ExperienceModule } from './experience/experience.module';
+import { ProfileModule } from './profile/profile.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -22,14 +23,27 @@ import { ExperienceModule } from './experience/experience.module';
     synchronize: true,
     autoLoadEntities: true,
   }),
-  ServeStaticModule.forRoot({
-    rootPath: join(__dirname, '..', 'src', 'assets'), // Path to your assets folder
-  }),
+  ServeStaticModule.forRoot(
+    {
+    rootPath: join(__dirname, '..', 'src', 'assets'),
+    renderPath: '/assets' // Path to assets folder
+  },
+  
+),
+ServeStaticModule.forRoot(
+  {
+  rootPath: join(__dirname, '..', 'uploads'),
+  renderPath: '/uploads' // Path to assets folder
+},
+),
   ProjectsModule,
   ContactModule, 
   AuthModule, 
   UsersModule, 
-  AboutModule, ExperienceModule,
+  AboutModule, 
+  ExperienceModule,
+  ProfileModule,
+  FilesModule,
 ],
 })
 export class AppModule {}
